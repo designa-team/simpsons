@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/simpsons/static/css/main.67b5d808.css",
+    "main.js": "/simpsons/static/js/main.98866f04.js",
+    "static/js/787.52b8259e.chunk.js": "/simpsons/static/js/787.52b8259e.chunk.js",
+    "static/media/male_1.png": "/simpsons/static/media/male_1.d81cd481e1e04d658c00.png",
+    "static/media/female_2.png": "/simpsons/static/media/female_2.789d87a8ed729eaff1d0.png",
+    "static/media/female_3.png": "/simpsons/static/media/female_3.2d73459e3c063cd20750.png",
+    "static/media/male_3.png": "/simpsons/static/media/male_3.3f4f2f2b132a33764291.png",
+    "static/media/male_2.png": "/simpsons/static/media/male_2.631b74f5fac29d6efe4b.png",
+    "static/media/female_1.png": "/simpsons/static/media/female_1.6b7bac69fcad53a78b64.png",
+    "index.html": "/simpsons/index.html",
+    "main.67b5d808.css.map": "/simpsons/static/css/main.67b5d808.css.map",
+    "main.98866f04.js.map": "/simpsons/static/js/main.98866f04.js.map",
+    "787.52b8259e.chunk.js.map": "/simpsons/static/js/787.52b8259e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67b5d808.css",
+    "static/js/main.98866f04.js"
+  ]
+}
