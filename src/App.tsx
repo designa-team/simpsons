@@ -8,6 +8,7 @@ import Image3 from './assets/male_3.png';
 import Image4 from './assets/female_1.png';
 import Image5 from './assets/female_2.png';
 import Image6 from './assets/female_3.png';
+import Swal from 'sweetalert2';
 
 type Color = {
   color: string;
@@ -20,6 +21,7 @@ type ProfilePic = {
   gender: string;
   background: string;
   ribbon: string;
+  image: any;
 }
 
 function App() {
@@ -31,6 +33,7 @@ function App() {
   const images_females = [
     Image4, Image5, Image6
   ];
+  const [loading, setLoading] = useState(false);
   const colors: Color[] = [
     {
       color: 'blue',
@@ -73,7 +76,10 @@ function App() {
     const data = {...profile};
     data[field] = value;
     if(field == 'gender'){
-      data['image'] = data.gender == 'male' ? images_males[ Math.floor(Math.random()*images_males.length) ]  : images_females[ Math.floor(Math.random()*images_females.length) ]
+      setLoading(true);
+      Swal.fire("Cargando...");
+      Swal.showLoading();
+      data['image'] = data.gender == 'male' ? getRandomImage(images_males, data['image'] ? data['image'] : '')  : getRandomImage(images_females, data['image'] ? data['image'] : '');
     }
     setProfile({...data});
   }
@@ -85,9 +91,22 @@ function App() {
       name: profile.name ? profile.name : '',
       ribbon: getRandomColor(),
       background: getRandomColor(),
+      image: ''
     };
-    data['image'] = profile.gender == 'male' ? images_males[ Math.floor(Math.random()*images_males.length) ]  : images_females[ Math.floor(Math.random()*images_females.length) ];
+    setLoading(true);
+    Swal.fire("Cargando...");
+    Swal.showLoading();
+    data['image'] = data.gender == 'male' ? getRandomImage(images_males, profile['image'] ? profile['image'] : '')  : getRandomImage(images_females, profile['image'] ? profile['image'] : '');
     setProfile({...data})
+  }
+
+  const getRandomImage:any = ( images:string[], previous_image:string ) => {
+    const image = images[ Math.floor(Math.random()*images.length) ];
+    if( image != previous_image ){
+      return image;
+    }else{
+      return getRandomImage( images, previous_image);
+    }
   }
 
   const downloadImage = () => {
@@ -107,6 +126,12 @@ function App() {
     })
   }
 
+  const imageLoaded = () => {
+    console.log("Cargado");
+    Swal.close();
+    setLoading(false);
+  }
+
   return (
     <div className="App">
       <Row>
@@ -121,7 +146,7 @@ function App() {
                     <Option value="male">Masculino</Option>
                   </Select>
                 </Form.Item>
-                <Form.Item label="Color de fondo:">
+                {/*<Form.Item label="Color de fondo:">
                   <Select onChange={(e:string)=>onChange(e,'background')} value={profile.background}>
                     <Option> </Option>
                     {
@@ -140,7 +165,7 @@ function App() {
                       ))
                     }
                   </Select>
-                </Form.Item>
+                  </Form.Item>*/}
                 <Form.Item label="Nombre:">
                   <Input onChange={(e:React.ChangeEvent<HTMLInputElement>)=>onChange(e.target.value,'name')} value={profile.name}></Input>
                 </Form.Item>
@@ -157,8 +182,8 @@ function App() {
             <Col xs={24} md={12}>
               <div ref={ref} className="profile">
                 <div className="background" style={{backgroundColor:profile.background}}></div>
-                <div className="image">
-                  <img src={profile.image}></img>
+                <div className="image" style={{display: loading ? "none" : "block"}}>
+                  <img src={profile.image} onLoad={imageLoaded}></img>
                 </div>
                 <div className="ribbon" style={{backgroundColor:profile.ribbon}}>
                   <h1>{
