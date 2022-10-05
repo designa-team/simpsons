@@ -88,7 +88,7 @@ function App() {
   const createRandom = async () => {
     let data:ProfilePic = {
       gender: profile.gender ? profile.gender : ['female','male'][ Math.floor(Math.random()*2) ],
-      name: profile.name ? profile.name : '',
+      name: profile.name ? profile.name : 'Mi nombre',
       ribbon: getRandomColor(),
       background: getRandomColor(),
       image: ''
@@ -180,9 +180,9 @@ function App() {
               </div>
             </Col>
             <Col xs={24} md={12}>
-              <div ref={ref} className="profile">
+              <div ref={ref} className="profile" style={{display: loading ? "none" : "block"}}>
                 <div className="background" style={{backgroundColor:profile.background}}></div>
-                <div className="image" style={{display: loading ? "none" : "block"}}>
+                <div className="image">
                   <img src={profile.image} onLoad={imageLoaded}></img>
                 </div>
                 <div className="ribbon" style={{backgroundColor:profile.ribbon}}>
